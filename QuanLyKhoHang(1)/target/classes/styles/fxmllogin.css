@@ -1,0 +1,14 @@
+/*
+ * Empty Stylesheet file.
+ */
+*{
+    -fx-font-family: Arial, Helvetica, sans-serif;
+
+}
+.mainFxmlClass {
+    -fx-background-color: #FFB9B9;
+}
+
+.Label{
+    -fx-font-size: 28px;
+}
