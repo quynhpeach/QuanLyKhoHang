@@ -1,3 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.quanlykhohang;
+
+/**
+ *
+ * @author DELL
+ */
 
 import java.util.Date;
 
@@ -57,14 +67,14 @@ public class SanPham {
     /**
      * @return the loaiSp
      */
-    public int getLoaiSp() {
+    public String getLoaiSp() {
         return loaiSp;
     }
 
     /**
      * @param loaiSp the loaiSp to set
      */
-    public void setLoaiSp(int loaiSp) {
+    public void setLoaiSp(String loaiSp) {
         this.loaiSp = loaiSp;
     }
 
@@ -83,20 +93,6 @@ public class SanPham {
     }
 
     /**
-     * @return the ngayXuatKho
-     */
-    public Date getNgayXuatKho() {
-        return ngayXuatKho;
-    }
-
-    /**
-     * @param ngayXuatKho the ngayXuatKho to set
-     */
-    public void setNgayXuatKho(Date ngayXuatKho) {
-        this.ngayXuatKho = ngayXuatKho;
-    }
-
-    /**
      * @return the hanSd
      */
     public Date getHanSd() {
@@ -109,11 +105,20 @@ public class SanPham {
     public void setHanSd(Date hanSd) {
         this.hanSd = hanSd;
     }
+    
+    public SanPham(int maSp, String tenSp, int soLuong, String loaiSp, Date ngayNhapKho, Date hanSd){
+        this.maSp = maSp;
+        this.tenSp = tenSp;
+        this.soLuong = soLuong;
+        this.loaiSp = loaiSp;
+        this.ngayNhapKho = ngayNhapKho;
+        this.hanSd = hanSd;
+    }
     public int maSp;
     public String tenSp;
     public int soLuong;
-    public int loaiSp;
+    public String loaiSp;
     public Date ngayNhapKho;
-    public Date ngayXuatKho;
     public Date hanSd;
 }
+

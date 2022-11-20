@@ -3,5 +3,10 @@
  */
 
 .mainFxmlClass {
+   -fx-font-family: "Open Sans";
+}
+
+.themSP{
+    -fx-background-color: #FFB9B9;
 
 }
