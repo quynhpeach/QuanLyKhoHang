@@ -26,6 +26,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -88,8 +90,12 @@ public class FXMLdashboardController implements Initializable {
 
     @FXML
     private Button btnSua;
+    
+      @FXML
+    private TextField filterField;
 
     ObservableList<SanPham> listSP;
+    ObservableList<SanPham> datalistSP;
 
 //    int index = -1;
 //
@@ -97,7 +103,6 @@ public class FXMLdashboardController implements Initializable {
     //Connection conn = null;
     ResultSet rs = null;
     PreparedStatement ps = null;
-
 
 //    @FXML 
 //    void btnSuaPressed(MouseEvent event) throws SQLException, ParseException{
@@ -175,8 +180,8 @@ public class FXMLdashboardController implements Initializable {
         getSelected(e);
         updateTable();
     }
-    
-    public void updateTable(){
+
+    public void updateTable() {
         id.setCellValueFactory(new PropertyValueFactory<>("maSp"));
         tenSp.setCellValueFactory(new PropertyValueFactory<>("tenSp"));
         soLuong.setCellValueFactory(new PropertyValueFactory<>("soLuong"));
@@ -193,17 +198,51 @@ public class FXMLdashboardController implements Initializable {
         bangSanPham.setItems(listSP);
     }
 
+    @FXML
+    void searchSanPham() throws SQLException {
+        id.setCellValueFactory(new PropertyValueFactory<>("maSp"));
+        tenSp.setCellValueFactory(new PropertyValueFactory<>("tenSp"));
+        soLuong.setCellValueFactory(new PropertyValueFactory<>("soLuong"));
+        loaiSp.setCellValueFactory(new PropertyValueFactory<>("loaiSp"));
+        ngayNhapKho.setCellValueFactory(new PropertyValueFactory<>("ngayNhapKho"));
+        hanSuDung.setCellValueFactory(new PropertyValueFactory<>("hanSd"));
+        datalistSP = getSanPham();
+        bangSanPham.setItems(datalistSP);
+        
+        FilteredList<SanPham> filteredData = new FilteredList<>(listSP, b -> true);
+        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(person -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (person.getTenSp().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches username
+                } else if (person.getNgayNhapKho().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches password
+                } else if (person.getLoaiSp().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches password
+                } else if (String.valueOf(person.getHanSd()).indexOf(lowerCaseFilter) != -1) {
+                    return true;// Filter matches email
+                } else {
+                    return false; // Does not match.
+                }
+            });
+        });
+        SortedList<SanPham> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(bangSanPham.comparatorProperty());
+        bangSanPham.setItems(sortedData);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-   
-    updateTable();
-//    Date date = null;
-//    String test = "04-02-2020";
-//        try {
-//             date = formatter.parse(test);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(FXMLdashboardController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    //System.out.println(formatter.format(date));
+
+        updateTable();
+        try {
+            searchSanPham();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLdashboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
