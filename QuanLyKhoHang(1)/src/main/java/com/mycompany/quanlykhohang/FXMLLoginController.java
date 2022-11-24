@@ -4,6 +4,7 @@
  */
 package com.mycompany.quanlykhohang;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -18,6 +19,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 /**
  * FXML Controller class
@@ -28,10 +33,14 @@ public class FXMLLoginController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
-    
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     @FXML
     private Button btnCancel;
     @FXML
@@ -41,46 +50,59 @@ public class FXMLLoginController implements Initializable {
     @FXML
     private PasswordField pswPassword;
     
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    //TODO
+        //TODO
     }
-    
-    public void loginButtonOnAction(ActionEvent e) throws SQLException {
-        
-        if (txtUsername.getText().isBlank() == false && pswPassword.getText().isBlank() == false){
+
+    public void loginButtonOnAction(ActionEvent e) throws SQLException, IOException {
+
+        if (txtUsername.getText().isBlank() == false && pswPassword.getText().isBlank() == false) {
             //loginMessageLabel.setText("Vui lòng điền thông tin đăng nhập chính xác!"); //Test Login Message
-            validateLogin();
+            if(validateLogin() == true)
+            switchDashboard(e);
+        } 
+        else {
+            loginMessageLabel.setText("Vui lòng nhập tên đăng nhập và mật khẩu.");
         }
-        else
-            loginMessageLabel.setText("Vui lòng nhập tên đăng nhập và mật khẩu.");            
     }
-    
+
     public void btnCancelOnAction(ActionEvent e) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
-    
-    public void validateLogin() throws SQLException {
+
+    public boolean validateLogin() throws SQLException {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
-        
+
         String veryfyLogin = "SELECT count(1) FROM quanlykhohangdb.nhanvien WHERE tenDN = '" + txtUsername.getText() + "' AND matKhau = '" + pswPassword.getText() + "'";
-        
-        try{
-            
+
+        try {
             Statement statement = connectDB.createStatement();
             ResultSet queryResult = statement.executeQuery(veryfyLogin);
-            
-            while(queryResult.next()) {
-                if(queryResult.getInt(1) == 1){
+
+            while (queryResult.next()) {
+                if (queryResult.getInt(1) == 1) {
                     loginMessageLabel.setText("Đăng nhập thành công!");
+                    return true;
                 } else {
                     loginMessageLabel.setText("Tên đăng nhập hoặc mật khẩu không hợp lệ.");
                 }
             }
-        }   catch (Exception e){
-                e.printStackTrace();
-            }
-    } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            return false;
+    }
+
+    public void switchDashboard(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLdashboard.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }
