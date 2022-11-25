@@ -4,25 +4,82 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" focusTraversable="true" prefHeight="412.0" prefWidth="420.0" styleClass="mainFxmlClass" stylesheets="@../../../styles/fxmllogin.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="com.mycompany.quanlykhohang.FXMLLoginController">
-   <children>
-      <TextField layoutX="113.0" layoutY="126.0" prefHeight="36.0" prefWidth="237.0" promptText="Email" />
-      <PasswordField layoutX="112.0" layoutY="195.0" prefHeight="36.0" prefWidth="238.0" promptText="Mật khẩu" />
-      <Button layoutX="186.0" layoutY="272.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="89.0" text="Đăng nhập" />
-      <Label id="labelQLKH" layoutX="100.0" layoutY="50.0" styleClass="Label" stylesheets="@../../../styles/fxmllogin.css" text="Quản lý kho hàng" />
-      <ImageView fx:id="image1" fitHeight="36.0" fitWidth="37.0" layoutX="57.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../styles/user-interface.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="image2" fitHeight="36.0" fitWidth="44.0" layoutX="57.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../styles/padlock.png" />
-         </image>
-      </ImageView>
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.quanlykhohang.FXMLLoginController">
+   <left>
+      <AnchorPane prefHeight="407.0" prefWidth="228.0" style="-fx-background-color: #682860;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" layoutX="15.0" layoutY="113.0" prefHeight="17.0" prefWidth="205.0" text="Kratos" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold" size="24.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Label>
+            <Label alignment="CENTER" layoutX="12.0" layoutY="161.0" prefHeight="17.0" prefWidth="211.0" text="Warehouse Management" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Label>
+            <Line endX="87.75" layoutX="117.0" layoutY="154.0" startX="-91.5" stroke="WHITE" strokeWidth="2.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Line>
+            <Circle fill="TRANSPARENT" layoutX="115.0" layoutY="157.0" radius="93.0" stroke="#6a6a6a2e" strokeType="INSIDE" strokeWidth="2.5">
+               <effect>
+                  <DropShadow />
+               </effect></Circle>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="372.0" prefHeight="10.0" prefWidth="160.0" text="Copyright (c). All Rights Reserved." textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI" size="8.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="400.0" prefWidth="322.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" layoutX="47.0" layoutY="49.0" prefHeight="17.0" prefWidth="211.0" text="Login">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Label>
+            <Label layoutX="28.0" layoutY="139.0" text="Username:" />
+            <Label layoutX="28.0" layoutY="169.0" text="Password:" />
+            <TextField fx:id="txtUsername" layoutX="109.0" layoutY="135.0" promptText="Username" />
+            <PasswordField fx:id="pswPassword" layoutX="109.0" layoutY="162.0" promptText="Password" />
+            <Button fx:id="btnCancel" layoutX="108.0" layoutY="295.0" mnemonicParsing="false" onAction="#btnCancelOnAction" prefHeight="31.0" prefWidth="109.0" style="-fx-background-color: #682860;" text="Cancel" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnLoggin" layoutX="108.0" layoutY="248.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="31.0" prefWidth="109.0" style="-fx-background-color: #682860;" text="Login" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="4.0" layoutY="76.0" prefHeight="24.0" prefWidth="284.0" textAlignment="CENTER" textFill="RED" wrapText="true">
+               <font>
+                  <Font name="Verdana" size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

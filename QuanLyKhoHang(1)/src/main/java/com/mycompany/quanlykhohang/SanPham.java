@@ -81,32 +81,32 @@ public class SanPham {
     /**
      * @return the ngayNhapKho
      */
-    public Date getNgayNhapKho() {
+    public String getNgayNhapKho() {
         return ngayNhapKho;
     }
 
     /**
      * @param ngayNhapKho the ngayNhapKho to set
      */
-    public void setNgayNhapKho(Date ngayNhapKho) {
+    public void setNgayNhapKho(String ngayNhapKho) {
         this.ngayNhapKho = ngayNhapKho;
     }
 
     /**
      * @return the hanSd
      */
-    public Date getHanSd() {
+    public String getHanSd() {
         return hanSd;
     }
 
     /**
      * @param hanSd the hanSd to set
      */
-    public void setHanSd(Date hanSd) {
+    public void setHanSd(String hanSd) {
         this.hanSd = hanSd;
     }
     
-    public SanPham(int maSp, String tenSp, int soLuong, String loaiSp, Date ngayNhapKho, Date hanSd){
+    public SanPham(int maSp, String tenSp, int soLuong, String loaiSp, String ngayNhapKho, String hanSd){
         this.maSp = maSp;
         this.tenSp = tenSp;
         this.soLuong = soLuong;
@@ -118,7 +118,7 @@ public class SanPham {
     public String tenSp;
     public int soLuong;
     public String loaiSp;
-    public Date ngayNhapKho;
-    public Date hanSd;
+    public String ngayNhapKho;
+    public String hanSd;
 }
 
