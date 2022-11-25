@@ -79,31 +79,13 @@ public class FXMLdashboardController implements Initializable {
 
     @FXML
     private TextField txtHanSD;
-
-    @FXML
-    private Button btnThem;
-
-    @FXML
-    private Button btnSua;
     
-      @FXML
+    @FXML
     private TextField filterField;
-
     ObservableList<SanPham> listSP;
     ObservableList<SanPham> datalistSP;
-
-//    int index = -1;
-//
-//    String sql = null;
-    //Connection conn = null;
     ResultSet rs = null;
     PreparedStatement ps = null;
-
-//    @FXML 
-//    void btnSuaPressed(MouseEvent event) throws SQLException, ParseException{
-//        getSelected(event);
-//        Edit();
-//    }
 
 
     public ObservableList<SanPham> getSanPham() throws SQLException {
@@ -144,24 +126,6 @@ public class FXMLdashboardController implements Initializable {
         txtHanSD.setText(hanSuDung.getCellData(index));
     }
 
-    // quynh
-//    @FXML
-//    void getSelected(MouseEvent event) throws SQLException {
-//        index = bangSanPham.getSelectionModel().getSelectedIndex();
-//        if (index <= -1) {
-//            return;
-//        }
-//        txtID.setText(id.getCellData(index).toString());
-//        txtTenHangHoa.setText(tenSp.getCellData(index));
-//        txtSoLuong.setText(soLuong.getCellData(index).toString());
-//        txtLoaiHang.setText(loaiSp.getCellData(index));
-//        txtNgayNhapKho.setText(ngayNhapKho.getCellData(index));
-//        txtHanSD.setText(hanSuDung.getCellData(index));
-//        listSP = getSanPham();
-//        bangSanPham.setItems(listSP);
-//    }
-
-
 
     public void updateTable() {
         id.setCellValueFactory(new PropertyValueFactory<>("maSp"));
@@ -194,24 +158,7 @@ public class FXMLdashboardController implements Initializable {
         ps.execute();
         updateTable();
     }
-
-    // quynh
-/*    @FXML
-    void addSanPham(ActionEvent event) {
-        SanPham sanpham;
-        sanpham = new SanPham(Integer.parseInt(txtID.getText()),
-                txtTenHangHoa.getText(),
-                Integer.parseInt(txtSoLuong.getText()),
-                txtLoaiHang.getText(),
-                txtNgayNhapKho.getText(),
-                txtHanSD.getText());
-        ObservableList<SanPham> sanpham2 = bangSanPham.getItems();
-        sanpham2.add(sanpham);
-        bangSanPham.setItems(sanpham2);
-        updateTable();
-
-    }*/
-
+    
     @FXML
     void editSanPham() throws SQLException {
         String sql = "UPDATE sanpham SET tensp=?, slton=?, loaisp=?, ngaynhapkho=?, hansd=? WHERE masp=?";
@@ -228,24 +175,6 @@ public class FXMLdashboardController implements Initializable {
         updateTable();
     }
 
-    // quynh
-/*    public void btnSuaPressed(ActionEvent e) throws SQLException, ParseException {
-        DatabaseConnection connectNow = new DatabaseConnection();
-        Connection conn = connectNow.getConnection();
-//        Statement ps = conn.createStatement();
-        int id_value = Integer.parseInt(txtSoLuong.getText());
-        String tenHangHoa_value = txtTenHangHoa.getText();
-        int soLuong_value = Integer.parseInt(txtSoLuong.getText());
-        String loaiHang_value = txtLoaiHang.getText();
-        String ngayNhapKho_value = txtNgayNhapKho.getText();
-        String hanSuDung_value = txtHanSD.getText();
-        String sql = "update sanpham set masp = '" + id_value + "',tensp='" + tenHangHoa_value + "',slton='" + soLuong_value + "',loaisp='"
-                + loaiHang_value + "',ngaynhapkho='" + ngayNhapKho_value + "',hansd='" + hanSuDung_value + "' where masp='" + id_value + "'";
-        ps = conn.prepareStatement(sql);
-        ps.execute();
-        getSelected(e);
-        updateTable();
-    }*/
 
     @FXML
     void searchSanPham() throws SQLException {
@@ -300,42 +229,6 @@ public class FXMLdashboardController implements Initializable {
         bangSanPham.setItems(sortedData);
     }
 
- /*   @FXML
-    void searchSanPham() throws SQLException {
-        id.setCellValueFactory(new PropertyValueFactory<>("maSp"));
-        tenSp.setCellValueFactory(new PropertyValueFactory<>("tenSp"));
-        soLuong.setCellValueFactory(new PropertyValueFactory<>("soLuong"));
-        loaiSp.setCellValueFactory(new PropertyValueFactory<>("loaiSp"));
-        ngayNhapKho.setCellValueFactory(new PropertyValueFactory<>("ngayNhapKho"));
-        hanSuDung.setCellValueFactory(new PropertyValueFactory<>("hanSd"));
-        datalistSP = getSanPham();
-        bangSanPham.setItems(datalistSP);
-        
-        FilteredList<SanPham> filteredData = new FilteredList<>(listSP, b -> true);
-        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(person -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (person.getTenSp().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true; // Filter matches username
-                } else if (person.getNgayNhapKho().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true; // Filter matches password
-                } else if (person.getLoaiSp().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true; // Filter matches password
-                } else if (String.valueOf(person.getHanSd()).indexOf(lowerCaseFilter) != -1) {
-                    return true;// Filter matches email
-                } else {
-                    return false; // Does not match.
-                }
-            });
-        });
-        SortedList<SanPham> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(bangSanPham.comparatorProperty());
-        bangSanPham.setItems(sortedData);
-    }*/
 
     @FXML
     void delSanPham(ActionEvent event) throws SQLException {
@@ -352,12 +245,6 @@ public class FXMLdashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         updateTable();
-//        try {
-//            searchSanPham();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(FXMLdashboardController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 }

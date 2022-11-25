@@ -77,11 +77,11 @@ public class FXMLLoginController implements Initializable {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
 
-        String veryfyLogin = "SELECT count(1) FROM quanlykhohangdb.nhanvien WHERE tenDN = '" + txtUsername.getText() + "' AND matKhau = '" + pswPassword.getText() + "'";
+        String verifyLogin = "SELECT count(1) FROM quanlykhohangdb.nhanvien WHERE tenDN = '" + txtUsername.getText() + "' AND matKhau = '" + pswPassword.getText() + "'";
 
         try {
             Statement statement = connectDB.createStatement();
-            ResultSet queryResult = statement.executeQuery(veryfyLogin);
+            ResultSet queryResult = statement.executeQuery(verifyLogin);
 
             while (queryResult.next()) {
                 if (queryResult.getInt(1) == 1) {
