@@ -79,14 +79,13 @@ public class FXMLdashboardController implements Initializable {
 
     @FXML
     private TextField txtHanSD;
-    
+
     @FXML
     private TextField filterField;
     ObservableList<SanPham> listSP;
     ObservableList<SanPham> datalistSP;
     ResultSet rs = null;
     PreparedStatement ps = null;
-
 
     public ObservableList<SanPham> getSanPham() throws SQLException {
         DatabaseConnection connectNow = new DatabaseConnection();
@@ -126,7 +125,6 @@ public class FXMLdashboardController implements Initializable {
         txtHanSD.setText(hanSuDung.getCellData(index));
     }
 
-
     public void updateTable() {
         id.setCellValueFactory(new PropertyValueFactory<>("maSp"));
         tenSp.setCellValueFactory(new PropertyValueFactory<>("tenSp"));
@@ -158,7 +156,7 @@ public class FXMLdashboardController implements Initializable {
         ps.execute();
         updateTable();
     }
-    
+
     @FXML
     void editSanPham() throws SQLException {
         String sql = "UPDATE sanpham SET tensp=?, slton=?, loaisp=?, ngaynhapkho=?, hansd=? WHERE masp=?";
@@ -174,7 +172,6 @@ public class FXMLdashboardController implements Initializable {
         ps.execute();
         updateTable();
     }
-
 
     @FXML
     void searchSanPham() throws SQLException {
@@ -219,7 +216,7 @@ public class FXMLdashboardController implements Initializable {
                     return true; // tim kiem theo ngay nhap kho
                 } else if (String.valueOf(sanPham.getHanSd()).indexOf(lowerCaseFilter) != -1) {
                     return true;// tim kiem theo han su dung
-                }  else {
+                } else {
                     return false; // khong tim thay
                 }
             });
@@ -228,7 +225,6 @@ public class FXMLdashboardController implements Initializable {
         sortedData.comparatorProperty().bind(bangSanPham.comparatorProperty());
         bangSanPham.setItems(sortedData);
     }
-
 
     @FXML
     void delSanPham(ActionEvent event) throws SQLException {
@@ -242,6 +238,23 @@ public class FXMLdashboardController implements Initializable {
         updateTable();
     }
 
+    public SanPham getSanPhamByMa(int maSp) throws SQLException {
+        SanPham p = null;
+        Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement stm = conn.prepareCall("SELECT * FROM sanpham WHERE masp=?");
+        stm.setInt(1, maSp);
+        ResultSet rs = stm.executeQuery();
+        while (rs.next()) {
+            p = new SanPham(rs.getInt("masp"),
+                    rs.getString("tensp"),
+                    rs.getInt("slton"),
+                    rs.getString("loaisp"),
+                    rs.getString("ngaynhapkho"),
+                    rs.getString("hansd"));
+            break;
+        }
+        return p;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

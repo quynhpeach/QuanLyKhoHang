@@ -1,0 +1,4 @@
+--patch-module
+com.mycompany.quanlykhohang=_
+--add-reads
+com.mycompany.quanlykhohang=ALL-UNNAMED
