@@ -10,6 +10,7 @@ package com.mycompany.quanlykhohang;
  */
 
 import java.util.Date;
+import java.util.List;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -120,5 +121,8 @@ public class SanPham {
     public String loaiSp;
     public String ngayNhapKho;
     public String hanSd;
+
+
+
 }
 

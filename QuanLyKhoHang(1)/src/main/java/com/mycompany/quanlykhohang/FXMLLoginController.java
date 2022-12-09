@@ -19,10 +19,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import com.mycompany.quanlykhohang.NhanVien;
 
 /**
  * FXML Controller class
@@ -104,5 +107,25 @@ public class FXMLLoginController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    
+    public List<NhanVien> validateLogIn(NhanVien nv) throws SQLException{
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+        List<NhanVien> listnv = new ArrayList<>();
+        String verifyLogin = "SELECT count(1) FROM quanlykhohangdb.nhanvien WHERE tenDN = '" + nv.getTenDn() + "' AND matKhau = '" + nv.getMatKhau() + "'";
 
+        try {
+            Statement statement = connectDB.createStatement();
+            ResultSet rs = statement.executeQuery(verifyLogin);
+            while (rs.next()) {
+                listnv.add(new NhanVien( rs.getInt("manv"),
+                        rs.getString("tennv"),
+                        rs.getString("tendn"),
+                        rs.getString("matkhau")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listnv;
+    }
 }

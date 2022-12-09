@@ -5,6 +5,7 @@
 package com.mycompany.quanlykhohang;
 
 //import com.mycompany.quanlykhohang.DatabaseConnection.getConnection;
+import static java.lang.reflect.Array.getInt;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -17,6 +18,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -141,8 +144,8 @@ public class FXMLdashboardController implements Initializable {
         bangSanPham.setItems(listSP);
     }
 
-    @FXML
-    void addSanPham(ActionEvent event) throws SQLException {
+    
+    public void addSanPham(ActionEvent event) throws SQLException {
         String sql = "INSERT INTO sanpham (masp, tensp, slton, loaisp, ngaynhapkho, hansd) VALUES (?,?,?,?,?,?)";
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection conn = connectNow.getConnection();
@@ -173,8 +176,8 @@ public class FXMLdashboardController implements Initializable {
         updateTable();
     }
 
-    @FXML
-    void searchSanPham() throws SQLException {
+    
+    public void searchSanPham() throws SQLException {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection conn = connectNow.getConnection();
         datalistSP = FXCollections.observableArrayList();
@@ -238,23 +241,6 @@ public class FXMLdashboardController implements Initializable {
         updateTable();
     }
 
-    public SanPham getSanPhamByMa(int maSp) throws SQLException {
-        SanPham p = null;
-        Connection conn = DatabaseConnection.getConnection();
-        PreparedStatement stm = conn.prepareCall("SELECT * FROM sanpham WHERE masp=?");
-        stm.setInt(1, maSp);
-        ResultSet rs = stm.executeQuery();
-        while (rs.next()) {
-            p = new SanPham(rs.getInt("masp"),
-                    rs.getString("tensp"),
-                    rs.getInt("slton"),
-                    rs.getString("loaisp"),
-                    rs.getString("ngaynhapkho"),
-                    rs.getString("hansd"));
-            break;
-        }
-        return p;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

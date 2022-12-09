@@ -1,4 +1,14 @@
 -------------------------------------------------------------------------------
 Test set: UnitTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.464 s - in UnitTest
+Tests run: 7, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.43 s <<< FAILURE! - in UnitTest
+UnitTest.testValidMaSp()  Time elapsed: 0.059 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <null> but was: <[com.mycompany.quanlykhohang.SanPham@3561c410]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertNull.failNotNull(AssertNull.java:50)
+	at org.junit.jupiter.api.AssertNull.assertNull(AssertNull.java:35)
+	at org.junit.jupiter.api.AssertNull.assertNull(AssertNull.java:30)
+	at org.junit.jupiter.api.Assertions.assertNull(Assertions.java:276)
+	at UnitTest.testValidMaSp(UnitTest.java:49)
+
